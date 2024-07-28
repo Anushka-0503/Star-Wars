@@ -2,37 +2,127 @@
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* Search Styles */
+.search-box {
+  font-size: 1.2rem;
+  border: 1px solid black;
+  border-radius: 1rem;
+  padding: 0.5rem;
+  margin: 1rem;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
+/* Button Styles*/
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+.button {
+  border: 2px solid black;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  background: black;
   color: white;
+  width: 5rem;
+  margin: 2rem;
+  cursor: pointer;
 }
 
-.App-link {
-  color: #61dafb;
+.button-disabled {
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  color: white;
+  width: 5rem;
+  margin: 2rem;
+  cursor: not-allowed;
+  background: grey;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+/** Table Styles **/
+
+.table {
+  width: 80%;
+  margin: 0 auto;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.table th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: center;
+  background-color: #f2f2f2;
+}
+
+.characterName{
+  cursor: pointer;
+  color: blue;
+}
+
+/** Responsive Styles **/
+
+@media (max-width: 600px) {
+  .App {
+    position: relative;
   }
-  to {
-    transform: rotate(360deg);
+  .pagination {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: aliceblue;
   }
+
+  .table,
+  .table tbody,
+  .table tr,
+  .table td {
+    display: block;
+  }
+
+  .table tr {
+    margin-bottom: 15px;
+  }
+
+  .table td {
+    text-align: left;
+    position: relative;
+  }
+}
+
+/* SVG Styles*/
+.spinner{
+  margin-top: 10rem;
+  height: 10rem;
+}
+.cross{
+  cursor: pointer;
+}
+
+/* Character Details Styles*/
+.characterDetailModal{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.characterDetailContent{
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 500px;
+  max-width: 100%;
+}
+.characterDetailHeader{
+  display: flex;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+}
+.characterDetailTitle{
+  margin: 0;
 }
