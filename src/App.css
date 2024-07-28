@@ -60,33 +60,25 @@
   color: blue;
 }
 
-/** Responsive Styles **/
+/* Media queries */
+@media (min-width: 769px) {
+  .cards-container {
+      display: none;
+  }
+}
 
-@media (max-width: 600px) {
-  .App {
-    position: relative;
+@media (max-width: 768px) {
+  .table {
+      display: none;
+  }
+  .cards-container {
+    margin-bottom: 6rem;
   }
   .pagination {
     position: fixed;
     bottom: 0;
     width: 100%;
     background: aliceblue;
-  }
-
-  .table,
-  .table tbody,
-  .table tr,
-  .table td {
-    display: block;
-  }
-
-  .table tr {
-    margin-bottom: 15px;
-  }
-
-  .table td {
-    text-align: left;
-    position: relative;
   }
 }
 
@@ -125,4 +117,29 @@
 }
 .characterDetailTitle{
   margin: 0;
+}
+
+/* Card Styles */
+
+.cards-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.card {
+  border: 1px solid black;
+  border-radius: 8px;
+  padding: 16px;
+  margin: 1rem;
+}
+
+.card-header h3 {
+  cursor: pointer;
+  color: blue;
+  text-decoration: underline;
+}
+
+.card-body p {
+  margin: 8px 0;
 }

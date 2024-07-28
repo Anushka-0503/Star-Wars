@@ -3,6 +3,8 @@ import { fetchCharacters } from "../dataFetching";
 import CharacterDetails from "./CharacterDetails";
 import SearchBox from "./SearchBox";
 import Spinner from "./Spinner";
+import TableView from "./TableView";
+import CardView from "./CardView";
 
 const CharacterList = () => {
     //State
@@ -13,11 +15,23 @@ const CharacterList = () => {
     const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState(0);
     const [searchTerm, setSearchTerm] = useState('');
+    const [isMobileView, setIsMobileView] = useState(window.innerWidth <= 768);
 
     //Call LoadCharacters when page changes
     useEffect(() => {
         loadCharacters(searchTerm);
     }, [page, searchTerm]);
+
+    useEffect(()=>{
+        const handleResize = () => {
+            setIsMobileView(window.innerWidth <= 768);
+        };  
+        window.addEventListener('resize', handleResize);
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        }
+
+    },[])
 
     //Load Characters API call
     const loadCharacters = async (searchTerm) => {
@@ -35,52 +49,32 @@ const CharacterList = () => {
         }
     };
 
-    const getCharactersTable= ()=>{
+    const getCharactersList= ()=>{
         return (
             characters?.length?(
-        <>
-        <table className="table">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Height</th>
-                <th>Mass</th>
-                <th>Gender</th>
-                <th>Hair color</th>
-            </tr>
-        </thead>
-        <tbody>
-            {characters?.map((character) => (
-                <tr
-                    key={character.name}>
-                    <td
-                    className="characterName"
-                    onClick={() => setSelectedCharacter(character?.url)}
-                    >{character.name}</td>
-                    <td>{character.height}</td>
-                    <td>{character.mass}</td>
-                    <td>{character.gender}</td>
-                    <td>{character.hair_color}</td>
-                </tr>
-            ))}
-        </tbody>
-    </table>
-    <div className="pagination">
-        <button
-            onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
-            className={page === 1 ? "button-disabled" : 'button'}
-        >
-            Previous
-        </button>
-        <span>Page {page} of {totalPages}</span>
-        <button
-            className={page === totalPages ? "button-disabled" : 'button'}
-            onClick={() => setPage((prev) => prev + 1)}
-        >
-            Next
-        </button>
-    </div>
-    </>): <div>{error}</div>)
+                <>{isMobileView ? (
+                    <CardView characters={characters} setSelectedCharacter={setSelectedCharacter} />
+                ) : (
+                    <TableView characters={characters} setSelectedCharacter={setSelectedCharacter} />
+                )}
+                <div className="pagination">
+                    <button
+                        onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
+                        className={page === 1 ? "button-disabled" : 'button'}
+                    >
+                        Previous
+                    </button>
+                    <span>Page {page} of {totalPages}</span>
+                    <button
+                        className={page === totalPages ? "button-disabled" : 'button'}
+                        onClick={() => setPage((prev) => prev + 1)}
+                    >
+                        Next
+                    </button>
+                </div>
+            </>
+            ):(<div>{error}</div>)
+        )
     }
 
     const handleSearch = (searchTerm)=>{
@@ -92,7 +86,7 @@ const CharacterList = () => {
     return (
         <div>
             <SearchBox searchTerm={searchTerm} handleSearch={handleSearch} />
-            {loading ? <Spinner/>: getCharactersTable()}
+            {loading ? <Spinner/>: getCharactersList()}
             {selectedCharacter && (
                 <CharacterDetails
                     url={selectedCharacter}
