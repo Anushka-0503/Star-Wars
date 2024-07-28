@@ -9,8 +9,8 @@ Follow these steps to set up and run the project locally.
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/Anushka-0503/star-wars.git
-cd star-wars
+git clone https://github.com/Anushka-0503/Star-Wars.git
+cd Star-Wars
 ```
 
 ### 2. Install Dependencies
